@@ -1,4 +1,4 @@
-namespace SampleProject.Domain
+namespace SampleProject.Domain.Models
 {
     public enum ProductType
     {

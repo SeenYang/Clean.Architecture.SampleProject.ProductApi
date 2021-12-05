@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using SampleProject.Domain.Models;
 
-namespace SampleProject.Domain
+namespace SampleProject.Domain.Interface
 {
     public interface IProductRepository
     {
