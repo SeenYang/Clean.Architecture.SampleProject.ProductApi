@@ -5,12 +5,12 @@ using SampleProject.Domain.Interface;
 using SampleProject.Domain.Models;
 using SampleProject.Infra.Interface;
 
-namespace SampleProject.Infra
+namespace SampleProject.Infra.Adapter
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly ILogger<ProductRepository> _logger;
         private readonly IProductDbContext _dbContext;
+        private readonly ILogger<ProductRepository> _logger;
 
         public ProductRepository(ILogger<ProductRepository> logger, IProductDbContext dbContext)
         {

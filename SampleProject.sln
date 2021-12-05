@@ -1,12 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleProject.Webapi", "SampleProject.Webapi\SampleProject.Webapi.csproj", "{037E47E6-E819-430F-BDB2-4E83E1E2302D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleProject.Webapi", "src\SampleProject.Webapi\SampleProject.Webapi.csproj", "{037E47E6-E819-430F-BDB2-4E83E1E2302D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleProject.Application", "SampleProject.Application\SampleProject.Application.csproj", "{49D5A933-BB19-420A-B3A7-2E4332C671D6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleProject.Application", "src\SampleProject.Application\SampleProject.Application.csproj", "{49D5A933-BB19-420A-B3A7-2E4332C671D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleProject.Infra", "SampleProject.Infra\SampleProject.Infra.csproj", "{2C8FAFBF-88F7-47E1-924B-8A55C7E536B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleProject.Infra", "src\SampleProject.Infra\SampleProject.Infra.csproj", "{2C8FAFBF-88F7-47E1-924B-8A55C7E536B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleProject.Domain", "SampleProject.Domain\SampleProject.Domain.csproj", "{E06AAA74-0BCE-405F-8DA0-C13FF9BEEB58}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleProject.Domain", "src\SampleProject.Domain\SampleProject.Domain.csproj", "{E06AAA74-0BCE-405F-8DA0-C13FF9BEEB58}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
