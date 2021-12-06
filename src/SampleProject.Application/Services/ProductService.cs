@@ -21,29 +21,35 @@ namespace SampleProject.Application.Services
             _productRepo = productRepo;
         }
 
-        public Task<IEnumerable<ProductModel>> GetProductsByName(string name)
+        public async Task<IEnumerable<ProductModel>> GetProductsByName(string name)
         {
-            throw new NotImplementedException();
+            return await _productRepo.GetProductsByName(name);
         }
 
-        public Task<ProductModel> GetProductBySku(string sku)
+        public async Task<ProductModel> GetProductBySku(string sku)
         {
-            throw new NotImplementedException();
+            return await _productRepo.GetProductBySku(sku);
         }
 
-        public Task<ProductModel> GetProductById(Guid sku)
+        public async Task<ProductModel> GetProductById(Guid sku)
         {
-            throw new NotImplementedException();
+            return await _productRepo.GetProductById(sku);
         }
 
-        public Task<ProductModel> AddProduct(ProductModel product)
+        public async Task<ProductModel> AddProduct(ProductModel product)
         {
-            throw new NotImplementedException();
+            var newProduct = await _productRepo.AddProduct(product);
+            _logger.LogInformation("Product {Id} create successfully", newProduct.Id);
+            await _msgClient.SendMessage(MessageType.Create, newProduct);
+            return newProduct;
         }
 
-        public Task<ProductModel> UpdateProduct(ProductModel product)
+        public async Task<ProductModel> UpdateProduct(ProductModel product)
         {
-            throw new NotImplementedException();
+            var newProduct = await _productRepo.UpdateProduct(product);
+            _logger.LogInformation("Product {Id} create successfully", newProduct.Id);
+            await _msgClient.SendMessage(MessageType.Update, newProduct);
+            return newProduct;
         }
     }
 }

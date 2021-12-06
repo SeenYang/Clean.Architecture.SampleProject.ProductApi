@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using SampleProject.Domain.Interface;
 using SampleProject.Domain.Models;
@@ -18,17 +19,27 @@ namespace SampleProject.Infra.Adapter
             _dbContext = dbContext;
         }
 
-        public IEnumerable<ProductModel> GetProductByName(string productName)
+        public Task<IEnumerable<ProductModel>> GetProductsByName(string productName)
         {
             throw new NotImplementedException();
         }
 
-        public ProductModel GetProductById(Guid id)
+        public Task<ProductModel> GetProductById(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public ProductModel GetProductBySku(string sku)
+        public Task<ProductModel> GetProductBySku(string sku)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ProductModel> AddProduct(ProductModel product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ProductModel> UpdateProduct(ProductModel product)
         {
             throw new NotImplementedException();
         }

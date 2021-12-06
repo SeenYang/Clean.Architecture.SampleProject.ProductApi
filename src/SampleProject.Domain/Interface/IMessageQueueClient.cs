@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using SampleProject.Domain.Models;
 
 namespace SampleProject.Domain.Interface
 {
@@ -6,6 +7,6 @@ namespace SampleProject.Domain.Interface
     {
         Task BuildMessage<T>(T input);
         Task CheckHealth();
-        Task SendMessage<T>(T message);
+        Task SendMessage<T>(MessageType messageType, T message);
     }
 }
