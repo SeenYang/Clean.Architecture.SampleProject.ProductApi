@@ -12,5 +12,6 @@ namespace SampleProject.Domain.Interface
         Task<ProductModel> GetProductBySku(string sku);
         Task<ProductModel> AddProduct(ProductModel product);
         Task<ProductModel> UpdateProduct(ProductModel product);
+        Task<bool> CheckHealth();
     }
 }

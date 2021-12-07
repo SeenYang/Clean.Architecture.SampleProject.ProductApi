@@ -79,5 +79,19 @@ namespace SampleProject.Infra.Adapter
                 throw;
             }
         }
+
+        public async Task<bool> CheckHealth()
+        {
+            try
+            {
+                await _dbContext.Products.FirstOrDefaultAsync();
+                return true;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Database health check fail. Error: {Error}", e.Message);
+                return false;
+            }
+        }
     }
 }

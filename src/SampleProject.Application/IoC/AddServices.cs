@@ -10,6 +10,7 @@ namespace SampleProject.Application.IoC
         public static void AddServices(this IServiceCollection services)
         {
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IHealthCheckService, HealthCheckService>();
         }
     }
 }

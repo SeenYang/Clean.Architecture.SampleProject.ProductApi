@@ -1,4 +1,5 @@
 using System.Reflection;
+using Aspnet.Webapi.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -49,9 +50,8 @@ namespace Aspnet.Webapi
             //         fv.RegisterValidatorsFromAssemblyContaining<ProductDtoValidator>());
 
             services.AddAutoMapper(Assembly.GetAssembly(typeof(Startup)));
-            // TODO: Health Check
-            // services.AddHealthChecks().AddCheck<PaymentsHealthCheckService>("check_eventbus_status");
-
+            services.AddHealthChecks()
+                .AddCheck<WebApiHealthCheckService>("WebApi_ServiceHealthCheck");
             // TODO: Add log settings.
             services.AddSingleton(provider => Log.Logger);
 
