@@ -47,7 +47,7 @@ namespace SampleProject.Application.Services
         public async Task<ProductModel> UpdateProduct(ProductModel product)
         {
             var newProduct = await _productRepo.UpdateProduct(product);
-            _logger.LogInformation("Product {Id} create successfully", newProduct.Id);
+            _logger.LogInformation("Product {Id} update successfully", newProduct.Id);
             await _msgClient.SendMessage(MessageType.Update, newProduct);
             return newProduct;
         }

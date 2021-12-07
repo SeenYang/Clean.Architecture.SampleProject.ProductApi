@@ -91,5 +91,23 @@ namespace SampleProject.Application.Tests
             _client.Verify(c => c.SendMessage(MessageType.Create, It.IsAny<ProductModel>()), Times.Once);
             _logger.VerifyLog(l => l.LogInformation("Product {Id} create successfully", result.Id), Times.Once);
         }
+        
+        [Fact]
+        public async Task WhenUpdateNewProduct_ShouldReturnNewProductAndSendMessage()
+        {
+            var product = new ProductModel
+            {
+                Sku = "FakeSku",
+                Name = "New Product"
+            };
+            _productRepo.Setup(x => x.UpdateProduct(It.IsAny<ProductModel>()))
+                .ReturnsAsync((ProductModel input) => input);
+
+            var result = await _service.UpdateProduct(product);
+
+            Assert.NotNull(result);
+            _client.Verify(c => c.SendMessage(MessageType.Update, It.IsAny<ProductModel>()), Times.Once);
+            _logger.VerifyLog(l => l.LogInformation("Product {Id} update successfully", result.Id), Times.Once);
+        }
     }
 }
