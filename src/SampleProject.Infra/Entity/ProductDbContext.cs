@@ -1,8 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using SampleProject.Infra.Entity;
 using SampleProject.Infra.Interface;
 
-namespace SampleProject.Infra
+namespace SampleProject.Infra.Entity
 {
     public class ProductDbContext : DbContext, IProductDbContext
     {
@@ -12,7 +11,7 @@ namespace SampleProject.Infra
 
 
         public DbSet<ProductEntity> Products { get; set; }
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ProductEntity>().ToTable("Product");

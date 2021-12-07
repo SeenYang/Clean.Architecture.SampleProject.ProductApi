@@ -1,9 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SampleProject.Domain.Interface;
 using SampleProject.Domain.Models;
+using SampleProject.Infra.Entity;
 using SampleProject.Infra.Interface;
 
 namespace SampleProject.Infra.Adapter
@@ -12,36 +16,68 @@ namespace SampleProject.Infra.Adapter
     {
         private readonly IProductDbContext _dbContext;
         private readonly ILogger<ProductRepository> _logger;
+        private readonly IMapper _mapper;
 
-        public ProductRepository(ILogger<ProductRepository> logger, IProductDbContext dbContext)
+        public ProductRepository(ILogger<ProductRepository> logger, IProductDbContext dbContext, IMapper mapper)
         {
             _logger = logger;
             _dbContext = dbContext;
+            _mapper = mapper;
         }
 
-        public Task<IEnumerable<ProductModel>> GetProductsByName(string productName)
+        public async Task<IEnumerable<ProductModel>> GetProductsByName(string productName)
         {
-            throw new NotImplementedException();
+            var entities = await _dbContext.Products.Where(p => string.Equals(p.Name, productName)).ToListAsync();
+            return _mapper.Map<List<ProductEntity>, List<ProductModel>>(entities);
         }
 
-        public Task<ProductModel> GetProductById(Guid id)
+        public async Task<ProductModel> GetProductById(Guid id)
         {
-            throw new NotImplementedException();
+            var entity = await _dbContext.Products.FirstOrDefaultAsync(p => p.Id == id);
+            return _mapper.Map<ProductEntity, ProductModel>(entity);
         }
 
-        public Task<ProductModel> GetProductBySku(string sku)
+        public async Task<ProductModel> GetProductBySku(string sku)
         {
-            throw new NotImplementedException();
+            var entity = await _dbContext.Products.FirstOrDefaultAsync(p => string.Equals(p.Sku, sku));
+            return _mapper.Map<ProductEntity, ProductModel>(entity);
         }
 
-        public Task<ProductModel> AddProduct(ProductModel product)
+        public async Task<ProductModel> AddProduct(ProductModel product)
         {
-            throw new NotImplementedException();
+            var entity = _mapper.Map<ProductModel, ProductEntity>(product);
+            try
+            {
+                var newProduct = await _dbContext.Products.AddAsync(entity);
+                await _dbContext.SaveChangesAsync();
+                return _mapper.Map<ProductEntity, ProductModel>(newProduct.Entity);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Failed to Add new product. Exception: {Exp}", e.Message);
+                throw;
+            }
         }
 
-        public Task<ProductModel> UpdateProduct(ProductModel product)
+        public async Task<ProductModel> UpdateProduct(ProductModel product)
         {
-            throw new NotImplementedException();
+            if (!await _dbContext.Products.AnyAsync(p => p.Id == product.Id))
+            {
+                _logger.LogError("Product not found. Id: {Id}", product.Id);
+            }
+
+            var entity = _mapper.Map<ProductModel, ProductEntity>(product);
+            try
+            {
+                var newProduct = _dbContext.Products.Update(entity);
+                await _dbContext.SaveChangesAsync();
+                return _mapper.Map<ProductEntity, ProductModel>(newProduct.Entity);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Failed to update new product. Exception: {Exp}", e.Message);
+                throw;
+            }
         }
     }
 }
