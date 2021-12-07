@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SampleProject.Infra.Interface;
 
-namespace SampleProject.Infra.Entity
+namespace SampleProject.Infra.Models.Entity
 {
     public class ProductDbContext : DbContext, IProductDbContext
     {

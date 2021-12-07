@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using SampleProject.Infra.Entity;
+using SampleProject.Infra.Models.Entity;
 
 namespace SampleProject.Infra.Interface
 {

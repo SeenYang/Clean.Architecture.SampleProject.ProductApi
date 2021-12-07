@@ -7,8 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SampleProject.Domain.Interface;
 using SampleProject.Domain.Models;
-using SampleProject.Infra.Entity;
 using SampleProject.Infra.Interface;
+using SampleProject.Infra.Models.Entity;
 
 namespace SampleProject.Infra.Adapter
 {

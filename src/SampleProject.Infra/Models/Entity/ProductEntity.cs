@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using SampleProject.Domain.Models;
 
-namespace SampleProject.Infra.Entity
+namespace SampleProject.Infra.Models.Entity
 {
     public class ProductEntity
     {
