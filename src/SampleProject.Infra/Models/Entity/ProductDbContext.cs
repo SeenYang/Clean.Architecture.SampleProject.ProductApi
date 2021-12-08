@@ -8,8 +8,7 @@ namespace SampleProject.Infra.Models.Entity
         public ProductDbContext(DbContextOptions<ProductDbContext> options) : base(options)
         {
         }
-
-
+        
         public DbSet<ProductEntity> Products { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)

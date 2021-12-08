@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SampleProject.Application.IoC;
 using SampleProject.Infra.IoC;
+using SampleProject.Infra.Models;
 using Serilog;
 
 namespace Aspnet.Webapi
@@ -26,6 +27,25 @@ namespace Aspnet.Webapi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            CommonConfigureServices(services);
+            services.AddServices();
+            var awsOptions = Configuration.GetAWSOptions();
+            services.AddDefaultAWSOptions(awsOptions);
+            services.AddMsgClient(new AwsConfig{IsLocalMode = false});
+            services.AddProductDbContext(new AwsConfig{IsLocalMode = false});
+        }
+
+        public void ConfigureDevelopmentServices(IServiceCollection services)
+        {
+            CommonConfigureServices(services);
+            services.AddServices();
+            var awsConfig = Configuration.GetSection("AwsConfig").Get<AwsConfig>();
+            services.AddMsgClient(awsConfig);
+            services.AddProductDbContext(awsConfig);
+        }
+
+        private static void CommonConfigureServices(IServiceCollection services)
+        {
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -33,11 +53,7 @@ namespace Aspnet.Webapi
                 // TODO: Swagger for mandatory headers.
                 // c.OperationFilter<SwaggerCustomiseHeaderFilter>();
             });
-
-            services.AddServices();
-            services.AddMsgClient();
-            services.AddProductDbContext();
-
+            
             // TODO: CorrelationContext
             // services.AddCorrelationContext();
 
@@ -52,9 +68,7 @@ namespace Aspnet.Webapi
             services.AddAutoMapper(Assembly.GetAssembly(typeof(Startup)));
             services.AddHealthChecks()
                 .AddCheck<WebApiHealthCheckService>("WebApi_ServiceHealthCheck");
-            // TODO: Add log settings.
             services.AddSingleton(provider => Log.Logger);
-
             services.AddCors(o =>
                 o.AddPolicy(AllowLocalHostOrigins,
                     builder =>
